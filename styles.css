@@ -1,5 +1,5 @@
 body {
-    background-image: url("./images/Hero.jpg");
+    background-image: url("./images/Home Page.jpg");
 }
 
 nav {
@@ -21,7 +21,7 @@ ul li a {
     text-decoration: none;
     font-family: 'Kumbh Sans';
     font-size: 54px;
-    color: black;
+    color: white;
     padding: 50px 50px;
     width: auto;
 }
@@ -30,7 +30,33 @@ ul li a:hover {
     color: grey
 }
 
+.id-container {
+    position: absolute;
+    top: 60%;
+    left: 55%;
+    width: 935px;
+    height: 512px;
+    transform: translate(-50%, -50%);
+    z-index: 0;
+    background-color: #F2F2F2;
+    border-radius: 20px;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+}
+
+.api-container {
+    position: absolute;
+    top: 35%;
+    left: 5%;
+    width: 356px;
+    height: 512px;
+    background-color: #d2d2d2;
+    z-index: 0;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+}
+
 .id-card {
+    position: absolute;
+    top: 20%;
     font-family: Georgia;
     margin: center;
     text-align: left;
@@ -49,3 +75,34 @@ ul li a:hover {
     padding-left: 50px;
 }
 
+.battle-img {
+    position: absolute;
+    width: 20%;
+    height: auto;
+    padding-left: 65px;
+    padding-top: 57px;
+}
+
+.pfp {
+    position: absolute;
+    width: 15%;
+    height: auto;
+    padding-left: 540px;
+    padding-top: 200px;
+}
+
+.icon-row {
+    position: absolute;
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    max-width: 300px;
+    margin: auto;
+    padding-top: 460px;
+    padding-left: 520px;
+}
+
+.icon-row img {
+    width: 50px;
+    height: 50px;
+}
