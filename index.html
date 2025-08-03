@@ -23,17 +23,52 @@
             <img src="./images/pfp.PNG">
             <h1>Creative License</h1>
             <p><b>Name:</b> Brandon Cho</p>
-            <p><b>Age:</b> 22</p>
             <p><b>Email:</b> brandoncho03@gmail.com</p>
+            <p><b>Skills:</b> Java, Python, C#, HTML, CSS </p>
             <p><b>Interests:</b> Coding, hanging out with friends, LEGOs, origami, nature, food</p>
             <p><b>Goals:</b> Building passionate projects and developing myself as a person</p>
         </div>
         <div class="icon-row">
-            <img src="./images/discord_icon.png" alt="discord icon">
-            <img src="./images/github_icon.png" alt="github icon">
-            <img src="./images/linkedin_icon.png" alt="linkedin icon">
-            <img src="./images/youtube_icon.png" alt="youtube icon">
+            <a href="https://github.com/brandoncho03" target="_blank">
+                <img src="./images/github_icon.png" alt="github icon">
+            </a>
+            <a href="https://www.linkedin.com/in/brandon-cho-726ba2223/" target="blank">
+                <img src="./images/linkedin_icon.png" alt="linkedin icon">
+            </a>
+            <a href="https://www.youtube.com/@realyesbrandon" target="_blank">  
+                <img src="./images/youtube_icon.png" alt="youtube icon">
+            </a>
+            <a href="./images/College Resume.pdf" target="_blank">
+                <img src="./images/resume_icon.png" alt="resume icon">
+            </a>
         </div>
+    </div>
+    <div>
+        <script>
+            const username = "yesbrandon";
+            const apiKey = "7647013eed8d6a12b5c6469240826efb";
+            const apiUrl = `https://ws.audioscrobbler.com/2.0/?method=user.getrecenttracks&user=yesbrandon&api_key=7647013eed8d6a12b5c6469240826efb&format=json&limit=5`;
+
+            async function getRecentTracks() {
+                const res = await fetch(apiUrl);
+                const data = await res.json();
+
+                const list = document.getElementById("track-list");
+                list.innerHTML = "";
+
+                data.recenttracks.track.forEach(track => {
+                    const li = document.createElement("li");
+                    const artist = track.artist["#text"];
+                    const song = track.name;
+                    const isNowPlaying = track["@attr"]?.nowplaying;
+
+                    li.textContent = `${artist} – ${song} ${isNowPlaying ? "🎵" : ""}`;
+                    list.appendChild(li);
+                });
+            }
+
+            getRecentTracks();
+        </script>
     </div>
 </body> 
 </html>
