@@ -1,0 +1,11 @@
+/* 
+CSS code for xwing game
+*/
+body#xwing {
+    font-family:'Courier New', Courier, monospace;
+    text-align: center;
+}
+
+#board {
+    background-image: url("../xwing_files/space.jpg")
+}
