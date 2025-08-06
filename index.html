@@ -6,7 +6,7 @@
     <title>brandy's homepage</title> 
     <link rel="stylesheet" href="styles.css">
 </head>
-<body>
+<body id="homepage">
     <nav>
         <ul>
             <li><a href="contact.html">Contact</a></li>
@@ -17,10 +17,10 @@
     </nav>
     <div class="flex-container">
         <div class="api-container">
-            <img src="./images/clones_vs_droids.png">
+            <img src="./homepage_images/clones_vs_droids.png">
         </div>
         <div class="id-card">
-            <img src="./images/pfp.PNG">
+            <img src="./homepage_images/pfp.PNG">
             <h1>Creative License</h1>
             <p><b>Name:</b> Brandon Cho</p>
             <p><b>Email:</b> brandoncho03@gmail.com</p>
@@ -30,45 +30,18 @@
         </div>
         <div class="icon-row">
             <a href="https://github.com/brandoncho03" target="_blank">
-                <img src="./images/github_icon.png" alt="github icon">
+                <img src="./homepage_images/github_icon.png" alt="github icon">
             </a>
             <a href="https://www.linkedin.com/in/brandon-cho-726ba2223/" target="blank">
-                <img src="./images/linkedin_icon.png" alt="linkedin icon">
+                <img src="./homepage_images/linkedin_icon.png" alt="linkedin icon">
             </a>
             <a href="https://www.youtube.com/@realyesbrandon" target="_blank">  
-                <img src="./images/youtube_icon.png" alt="youtube icon">
+                <img src="./homepage_images/youtube_icon.png" alt="youtube icon">
             </a>
             <a href="./images/College Resume.pdf" target="_blank">
-                <img src="./images/resume_icon.png" alt="resume icon">
+                <img src="./homepage_images/resume_icon.png" alt="resume icon">
             </a>
         </div>
-    </div>
-    <div>
-        <script>
-            const username = "yesbrandon";
-            const apiKey = "7647013eed8d6a12b5c6469240826efb";
-            const apiUrl = `https://ws.audioscrobbler.com/2.0/?method=user.getrecenttracks&user=yesbrandon&api_key=7647013eed8d6a12b5c6469240826efb&format=json&limit=5`;
-
-            async function getRecentTracks() {
-                const res = await fetch(apiUrl);
-                const data = await res.json();
-
-                const list = document.getElementById("track-list");
-                list.innerHTML = "";
-
-                data.recenttracks.track.forEach(track => {
-                    const li = document.createElement("li");
-                    const artist = track.artist["#text"];
-                    const song = track.name;
-                    const isNowPlaying = track["@attr"]?.nowplaying;
-
-                    li.textContent = `${artist} – ${song} ${isNowPlaying ? "🎵" : ""}`;
-                    list.appendChild(li);
-                });
-            }
-
-            getRecentTracks();
-        </script>
     </div>
 </body> 
 </html>
