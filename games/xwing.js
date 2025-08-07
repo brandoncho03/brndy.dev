@@ -5,6 +5,8 @@
 // changed pipes to move vertically instead of horizontally
 // created my own pipe and xwing sprites and added sound effects
 // changed font + text layout
+// added explosion sprite
+// added sound effects
 
 // board
 let board;
@@ -30,6 +32,7 @@ let xwing = {
 let pipeArray = [];
 let pipeHeight = 50;
 let pipeWidth = 500;
+let pipeCount = 0;
 let leftPipe;
 let rightPipe;
 
@@ -40,7 +43,12 @@ boom.src = "../xwing_files/boom.png";
 // sound effects
 let coinSound = new Audio("../xwing_files/coinSound.mp3")
 let shipExplode = new Audio("../xwing_files/explosion.mp3");
+let gameOverSound = new Audio("../xwing_files/gameover.mp3");
+let music = new Audio("../xwing_files/music.mp3");
+coinSound.volume = 0.5;
 shipExplode.volume = 0.3;
+music.volume = 0.3;
+music.loop = true;
 
 // game rules
 let pipeSpeed = 2;
@@ -67,29 +75,36 @@ window.onload = function() {
     rightPipe = new Image();
     rightPipe.src = "../xwing_files/pipe.png";
 
+    document.addEventListener("keydown", () => {
+    music.play();
+    });
+
     requestAnimationFrame(update);
     setInterval(placePipes, 2000);
     document.addEventListener("keydown", moveXwing);
 }
 
 function update() {
-    // base case
     requestAnimationFrame(update);
     if (gameOver) {
         return;
     }
-    
+
     context.clearRect(0, 0, board.width, board.height);
     context.drawImage(xwingImg, xwing.x, xwing.y, xwing.width, xwing.height);
 
     // pipes
     for (let i = 0; i < pipeArray.length; i++) {
+
         let pipe = pipeArray[i];
-        pipe.y += pipeSpeed
+        pipe.y += pipeSpeed;
         context.drawImage(pipe.img, pipe.x, pipe.y, pipe.width, pipe.height);
-        if (!pipe.passed && xwing.x > pipe.x + pipe.width) {
-            score += 1; 
-            coinSound.play();
+        if (pipe.isScoringPipe && !pipe.passed && xwing.y > pipe.y + pipe.height) {
+            if (pipeCount > 1) {
+                score += 1;
+                coinSound.play();
+            }
+            pipeCount += 1;
             pipe.passed = true;
         }
 
@@ -105,12 +120,20 @@ function update() {
 
     // score
     context.fillStyle = "white";
-    context.font="45px sans-serif";
-    context.fillText(score, 5, 45);
+    context.font="30px 'OCR A Std', monospace";
+    context.fillText("Score: " + score, 10, 50);
 
     if (gameOver) {
-        context.fillText("GAME OVER", 5, 90);
+        context.font="96px 'OCR A Std', monospace";
+        context.textAlign = "center";
+        context.textBaseline = "middle";
+        context.fillText("Game Over", board.width/2, board.height/2);
         shipExplode.play();
+        setTimeout(() => {
+            gameOverSound.play();
+        }, 500);
+        context.drawImage(boom, xwing.x-20, xwing.y-20, xwing.width + 50, xwing.height + 50);
+        music.pause();
     }    
 }
 
@@ -138,7 +161,8 @@ function placePipes() {
         y: -pipeHeight,
         width: boardWidth - rightPipeX,
         height: pipeHeight,
-        passed: false
+        passed: false,
+        isScoringPipe: true
     };
 
     pipeArray.push(leftPipeObj);
@@ -148,7 +172,7 @@ function placePipes() {
 function moveXwing(e) {
     if (gameOver) return;
 
-    let step = 50;
+    let step = 30;
     if (e.code === "ArrowUp" && xwing.y - step >= 0) {
         xwing.y -= step;
     } else if (e.code === "ArrowDown" && xwing.y + xwing.height + step <= boardHeight) {

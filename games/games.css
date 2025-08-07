@@ -1,8 +1,12 @@
 /* 
 CSS code for xwing game
 */
+@font-face {
+  font-family: 'OCR A Std';
+  src: url('../xwing_files/OCRAStd.woff') format('truetype'); 
+}
+
 body#xwing {
-    font-family:'Courier New', Courier, monospace;
     text-align: center;
 }
 
